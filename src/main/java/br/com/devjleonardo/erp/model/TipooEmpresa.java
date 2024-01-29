@@ -9,7 +9,7 @@ public enum TipooEmpresa {
 
     private String descricao;
 
-    TipoEmpresa(String descricao) {
+    TipooEmpresa(String descricao) {
         this.descricao = descricao;
     }
 
