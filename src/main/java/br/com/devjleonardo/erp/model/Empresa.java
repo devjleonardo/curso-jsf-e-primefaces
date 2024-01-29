@@ -107,7 +107,7 @@ public class Empresa implements Serializable {
 
     @Override
     public String toString() {
-        return "Empresa{" + " id=" + id + '}';
+        return "Empresa [id=" + id + "]";
     }
 
 }

@@ -48,7 +48,7 @@ public class RamoAtividade implements Serializable {
 
     @Override
     public String toString() {
-        return "RamoAtividade{" + "id= " + id + '}';
+        return "RamoAtividade [id=" + id + "]";
     }
 
 }
