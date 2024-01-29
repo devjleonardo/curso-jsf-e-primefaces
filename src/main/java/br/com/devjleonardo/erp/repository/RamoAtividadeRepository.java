@@ -2,6 +2,7 @@ package br.com.devjleonardo.erp.repository;
 
 import br.com.devjleonardo.erp.model.RamoAtividade;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -14,6 +15,7 @@ public class RamoAtividadeRepository implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @Inject
     private EntityManager entityManager;
 
     public RamoAtividadeRepository() {

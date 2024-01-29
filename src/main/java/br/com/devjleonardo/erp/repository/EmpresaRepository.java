@@ -2,6 +2,7 @@ package br.com.devjleonardo.erp.repository;
 
 import br.com.devjleonardo.erp.model.Empresa;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.io.Serializable;
@@ -11,6 +12,7 @@ public class EmpresaRepository implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @Inject
     private EntityManager entityManager;
 
     public EmpresaRepository() {
