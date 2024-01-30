@@ -1,6 +1,7 @@
 package br.com.devjleonardo.erp.controller;
 
 import br.com.devjleonardo.erp.model.Empresa;
+import br.com.devjleonardo.erp.model.TipoEmpresa;
 import br.com.devjleonardo.erp.repository.EmpresaRepository;
 import br.com.devjleonardo.erp.util.FacesMessages;
 
@@ -50,4 +51,7 @@ public class GestaoEmpresasBean implements Serializable {
         this.termoPesquisa = termoPesquisa;
     }
 
+    public TipoEmpresa[] getTiposEmpresa() {
+        return TipoEmpresa.values();
+    }
 }

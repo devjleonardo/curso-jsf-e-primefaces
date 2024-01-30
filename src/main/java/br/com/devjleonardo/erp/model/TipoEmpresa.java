@@ -1,6 +1,6 @@
 package br.com.devjleonardo.erp.model;
 
-public enum TipooEmpresa {
+public enum TipoEmpresa {
 
     MEI("Microempreendedor Individual"),
     EIRELI("Empresa Individual de Responsabilidade Limitada"),
@@ -9,7 +9,7 @@ public enum TipooEmpresa {
 
     private String descricao;
 
-    TipooEmpresa(String descricao) {
+    TipoEmpresa(String descricao) {
         this.descricao = descricao;
     }
 

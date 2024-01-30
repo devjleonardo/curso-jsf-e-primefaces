@@ -90,7 +90,35 @@
                     modal="true"
                     resizable="false"
                     closeOnEscape="true">
-                <p:commandButton value="Teste!"/>
+                <h:panelGrid columns="2">
+                    <p:outputLabel for="cnpj" value="CNPJ: "/>
+                    <p:inputMask id="cnpj" mask="99.999.999/9999-99" size="18" maxlength="18"/>
+
+                    <p:outputLabel for="razaoSocial" value="Razão social: "/>
+                    <p:inputText id="razaoSocial" size="80" maxlength="120"/>
+
+                    <p:outputLabel for="nomeFantasia" value="Nome fantasia: "/>
+                    <p:inputText id="nomeFantasia" size="80" maxlength="120"/>
+
+                    <p:outputLabel for="dataFundacao" value="Data fundação: "/>
+                    <p:calendar id="dataFundacao" pattern="dd/MM/yyyy" size="30"/>
+
+                    <p:outputLabel for="tipo" value="Tipo empresa: "/>
+                    <p:selectOneMenu id="tipo">
+                        <f:selectItem itemLabel="Selecione..."/>
+                        <f:selectItems
+                                value="#{gestaoEmpresasBean.tiposEmpresa}"
+                                var="tipoEmpresa"
+                                itemLabel="#{tipoEmpresa.descricao}"
+                                itemValue="#{tipoEmpresa}"/>
+                    </p:selectOneMenu>
+
+                    <p:outputLabel for="ramoAtividade" value="Ramo atividade: "/>
+                    <p:autoComplete id="ramoAtividade" size="80"/>
+
+                    <p:outputLabel/>
+                    <p:commandButton value="Salvar"/>
+                </h:panelGrid>
             </p:dialog>
         </h:form>
     </ui:define>
