@@ -2,6 +2,7 @@ package br.com.devjleonardo.erp.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
 
@@ -31,6 +32,9 @@ public class Empresa implements Serializable {
     @Column(nullable = false, length = 30)
     @Enumerated(EnumType.STRING)
     private  TipooEmpresa tipo;
+
+    @Column(precision = 10, scale = 2)
+    private BigDecimal faturamento;
 
     @ManyToOne
     @JoinColumn(name = "ramo_atividade_id", nullable = false)
@@ -82,6 +86,14 @@ public class Empresa implements Serializable {
 
     public void setTipo(TipooEmpresa tipo) {
         this.tipo = tipo;
+    }
+
+    public BigDecimal getFaturamento() {
+        return faturamento;
+    }
+
+    public void setFaturamento(BigDecimal faturamento) {
+        this.faturamento = faturamento;
     }
 
     public RamoAtividade getRamoAtividade() {
