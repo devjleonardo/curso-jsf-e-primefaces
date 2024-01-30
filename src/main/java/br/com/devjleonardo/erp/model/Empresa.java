@@ -16,14 +16,14 @@ public class Empresa implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nome_fantasia", nullable = false, length = 80)
-    private String nomeFantasia;
+    @Column(nullable = false, length = 18)
+    private  String cnpj;
 
     @Column(name = "razao_social", nullable = false, length = 120)
     private String razaoSocial;
 
-    @Column(nullable = false, length = 18)
-    private  String cnpj;
+    @Column(name = "nome_fantasia", nullable = false, length = 80)
+    private String nomeFantasia;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "data_fundacao")
@@ -48,12 +48,12 @@ public class Empresa implements Serializable {
         this.id = id;
     }
 
-    public String getNomeFantasia() {
-        return nomeFantasia;
+    public String getCnpj() {
+        return cnpj;
     }
 
-    public void setNomeFantasia(String nomeFantasia) {
-        this.nomeFantasia = nomeFantasia;
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
     }
 
     public String getRazaoSocial() {
@@ -64,12 +64,12 @@ public class Empresa implements Serializable {
         this.razaoSocial = razaoSocial;
     }
 
-    public String getCnpj() {
-        return cnpj;
+    public String getNomeFantasia() {
+        return nomeFantasia;
     }
 
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
+    public void setNomeFantasia(String nomeFantasia) {
+        this.nomeFantasia = nomeFantasia;
     }
 
     public Date getDataFundacao() {
