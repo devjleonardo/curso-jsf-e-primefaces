@@ -1,5 +1,8 @@
 package br.com.devjleonardo.erp.controller;
 
+import br.com.devjleonardo.erp.model.Empresa;
+import br.com.devjleonardo.erp.model.TipooEmpresa;
+
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -10,13 +13,22 @@ public class GestaoEmpresasBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private static Integer NUMERO = 0;
+   private Empresa empresa = new Empresa();
 
-    public GestaoEmpresasBean() {
-        NUMERO++;
+    public void salvar() {
+        System.out.println(
+                  "Nome fantasia: " + empresa.getNomeFantasia()
+                + " - Razão social: " + empresa.getNomeFantasia()
+                + " - Tipo: " + empresa.getTipo()
+        );
     }
 
-    public Integer getNumero() {
-        return NUMERO;
+    public Empresa getEmpresa() {
+        return empresa;
     }
+
+    public TipooEmpresa[] getTiposEmpresa() {
+        return TipooEmpresa.values();
+    }
+
 }
