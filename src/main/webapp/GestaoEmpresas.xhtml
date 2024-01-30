@@ -22,7 +22,10 @@
         <p:dataTable
                 value="#{gestaoEmpresasBean.listaEmpresas}"
                 var="empresa"
-                mptyMessage="Nenhuma informação a ser exibida">
+                paginator="true"
+                rows="10"
+                paginatorPosition="bottom"
+                emptyMessage="Nenhuma informação a ser exibida">
             <p:column headerText="CNPJ">
                 <h:outputText value="#{empresa.cnpj}"/>
             </p:column>
