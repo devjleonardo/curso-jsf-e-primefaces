@@ -30,12 +30,14 @@ public class EmpresaRepository implements Serializable {
         return entityManager.createQuery("FROM Empresa", Empresa.class).getResultList();
     }
 
-    public List<Empresa> pesquisarPorNomeFantasia(String nome) {
-        String jpql = "FROM Empresa WHERE nomeFantasia LIKE :nomeFantasia";
+    public List<Empresa> pesquisarPorRazaoSocialOuNomeFantasia(String termoPesquisa) {
+        String jpql =
+                "FROM Empresa " +
+                "WHERE razaoSocial LIKE :termoPesquisa OR nomeFantasia LIKE :termoPesquisa";
 
         TypedQuery<Empresa> query = entityManager.createQuery(jpql, Empresa.class);
 
-        query.setParameter("nomeFantasia", nome + "%");
+        query.setParameter("termoPesquisa", termoPesquisa + "%");
 
         return query.getResultList();
     }

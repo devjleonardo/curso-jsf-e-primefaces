@@ -2,6 +2,7 @@ package br.com.devjleonardo.erp.controller;
 
 import br.com.devjleonardo.erp.model.Empresa;
 import br.com.devjleonardo.erp.repository.EmpresaRepository;
+import br.com.devjleonardo.erp.util.FacesMessages;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -18,7 +19,20 @@ public class GestaoEmpresasBean implements Serializable {
     @Inject
     private EmpresaRepository empresaRepository;
 
+    @Inject
+    private FacesMessages messages;
+
     private List<Empresa> listaEmpresas;
+
+    private String termoPesquisa;
+
+    public void pesquisarPorRazaoSocialOuNomeFantasia() {
+        listaEmpresas = empresaRepository.pesquisarPorRazaoSocialOuNomeFantasia(termoPesquisa);
+
+        if (listaEmpresas.isEmpty()) {
+            messages.info("Sua pesquisa não retornou registros.");
+        }
+    }
 
     public void todasEmpresas() {
         listaEmpresas = empresaRepository.todasEmpresas();
@@ -26,6 +40,14 @@ public class GestaoEmpresasBean implements Serializable {
 
     public List<Empresa> getListaEmpresas() {
         return listaEmpresas;
+    }
+
+    public String getTermoPesquisa() {
+        return termoPesquisa;
+    }
+
+    public void setTermoPesquisa(String termoPesquisa) {
+        this.termoPesquisa = termoPesquisa;
     }
 
 }
