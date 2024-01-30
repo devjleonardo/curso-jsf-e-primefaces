@@ -1,11 +1,13 @@
 package br.com.devjleonardo.erp.controller;
 
 import br.com.devjleonardo.erp.model.Empresa;
-import br.com.devjleonardo.erp.model.TipooEmpresa;
+import br.com.devjleonardo.erp.repository.EmpresaRepository;
 
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.List;
 
 @Named
 @ViewScoped
@@ -13,26 +15,17 @@ public class GestaoEmpresasBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-   private Empresa empresa = new Empresa();
+    @Inject
+    private EmpresaRepository empresaRepository;
 
-    public void salvar() {
-        System.out.println(
-                  "Nome fantasia: " + empresa.getNomeFantasia()
-                + " - Razão social: " + empresa.getNomeFantasia()
-                + " - Tipo: " + empresa.getTipo()
-        );
+    private List<Empresa> listaEmpresas;
+
+    public void todasEmpresas() {
+        listaEmpresas = empresaRepository.todasEmpresas();
     }
 
-    public String ajuda() {
-        return "AjudaGestaoEmpresas?faces-redirect=true";
-    }
-
-    public Empresa getEmpresa() {
-        return empresa;
-    }
-
-    public TipooEmpresa[] getTiposEmpresa() {
-        return TipooEmpresa.values();
+    public List<Empresa> getListaEmpresas() {
+        return listaEmpresas;
     }
 
 }
