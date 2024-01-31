@@ -18,24 +18,29 @@
 
             <p:toolbar>
                 <f:facet name="left">
-                    <p:inputText
-                            placeholder="Razão Social ou Nome Fantasia..."
-                            value="#{gestaoEmpresasBean.termoPesquisa}"
-                            size="32"
-                            style="margin-right: 10px"/>
+                    <p:inputText id="termoPesquisa"
+                                 placeholder="Razão Social ou Nome Fantasia..."
+                                 value="#{gestaoEmpresasBean.termoPesquisa}"
+                                 size="32"
+                                 style="margin-right: 10px"/>
 
-                    <p:commandButton
-                            value="Pesquisar"
-                            actionListener="#{gestaoEmpresasBean.pesquisarPorRazaoSocialOuNomeFantasia()}"
-                            update="empresasDataTable"
-                            icon="fa fa fa-search"
-                            style="margin-right: 4px"/>
+                    <p:commandButton value="Pesquisar"
+                                     actionListener="#{gestaoEmpresasBean.pesquisarPorRazaoSocialOuNomeFantasia()}"
+                                     update="empresasDataTable"
+                                     process="@this termoPesquisa"
+                                     icon="fa fa fa-search"
+                                     style="margin-right: 4px"/>
 
                     <span class="ui-separator">
 	                    <span class="ui-icon ui-icon-grip-dotted-vertical"/>
 	                </span>
 
-                    <p:commandButton value="Nova" onclick="PF('empresaDialogWidgetVar').show()" icon="fa fa-plus"/>
+                    <p:commandButton value="Nova"
+                                     actionListener="#{gestaoEmpresasBean.prepararNovaEmpresa()}"
+                                     oncomplete="PF('empresaDialogWidgetVar').show()"
+                                     update="empresaDialog"
+                                     process="@this"
+                                     icon="fa fa-plus"/>
 
                     <span class="ui-separator">
                         <span class="ui-icon ui-icon-grip-dotted-vertical"/>
@@ -55,14 +60,13 @@
 
             <p:spacer height="20px"/>
 
-            <p:dataTable
-                    id="empresasDataTable"
-                    value="#{gestaoEmpresasBean.listaEmpresas}"
-                    var="empresa"
-                    paginator="true"
-                    rows="10"
-                    paginatorPosition="bottom"
-                    emptyMessage="Nenhuma informação a ser exibida">
+            <p:dataTable id="empresasDataTable"
+                         value="#{gestaoEmpresasBean.listaEmpresas}"
+                         var="empresa"
+                         paginator="true"
+                         rows="10"
+                         paginatorPosition="bottom"
+                         emptyMessage="Nenhuma informação a ser exibida">
                 <p:column headerText="CNPJ">
                     <h:outputText value="#{empresa.cnpj}"/>
                 </p:column>
@@ -84,47 +88,63 @@
                 </p:column>
             </p:dataTable>
 
-            <p:dialog
-                    header="Nova empresa"
-                    widgetVar="empresaDialogWidgetVar"
-                    modal="true"
-                    resizable="false"
-                    closeOnEscape="true">
-                <h:panelGrid columns="2">
+            <p:dialog id="empresaDialog"
+                      header="Nova empresa"
+                      widgetVar="empresaDialogWidgetVar"
+                      modal="true"
+                      resizable="false"
+                      closeOnEscape="true">
+                <h:panelGrid id="empresaPanelGrid" columns="2" rendered="#{gestaoEmpresasBean.empresa ne null}">
                     <p:outputLabel for="cnpj" value="CNPJ: "/>
-                    <p:inputMask id="cnpj" mask="99.999.999/9999-99" size="18" maxlength="18"/>
+                    <p:inputMask id="cnpj"
+                                 mask="99.999.999/9999-99"
+                                 value="#{gestaoEmpresasBean.empresa.cnpj}"
+                                 size="18"
+                                 maxlength="18"/>
 
                     <p:outputLabel for="razaoSocial" value="Razão social: "/>
-                    <p:inputText id="razaoSocial" size="80" maxlength="120"/>
+                    <p:inputText id="razaoSocial"
+                                 value="#{gestaoEmpresasBean.empresa.razaoSocial}"
+                                 size="80"
+                                 maxlength="120"/>
 
                     <p:outputLabel for="nomeFantasia" value="Nome fantasia: "/>
-                    <p:inputText id="nomeFantasia" size="80" maxlength="120"/>
+                    <p:inputText id="nomeFantasia"
+                                 value="#{gestaoEmpresasBean.empresa.nomeFantasia}"
+                                 size="80"
+                                 maxlength="120"/>
 
                     <p:outputLabel for="dataFundacao" value="Data fundação: "/>
-                    <p:calendar id="dataFundacao" pattern="dd/MM/yyyy" size="30"/>
+                    <p:calendar id="dataFundacao"
+                                value="#{gestaoEmpresasBean.empresa.dataFundacao}"
+                                pattern="dd/MM/yyyy"
+                                size="30"/>
 
                     <p:outputLabel for="tipo" value="Tipo empresa: "/>
-                    <p:selectOneMenu id="tipo">
+                    <p:selectOneMenu id="tipo" value="#{gestaoEmpresasBean.empresa.tipo}">
                         <f:selectItem itemLabel="Selecione..."/>
-                        <f:selectItems
-                                value="#{gestaoEmpresasBean.tiposEmpresa}"
-                                var="tipoEmpresa"
-                                itemLabel="#{tipoEmpresa.descricao}"
-                                itemValue="#{tipoEmpresa}"/>
+                        <f:selectItems value="#{gestaoEmpresasBean.tiposEmpresa}"
+                                       var="tipoEmpresa"
+                                       itemLabel="#{tipoEmpresa.descricao}"
+                                       itemValue="#{tipoEmpresa}"/>
                     </p:selectOneMenu>
 
                     <p:outputLabel for="ramoAtividade" value="Ramo atividade: "/>
-                    <p:autoComplete
-                            id="ramoAtividade"
-                            completeMethod="#{gestaoEmpresasBean.completarRamoAtividade}"
-                            converter="#{gestaoEmpresasBean.ramoAtividadeConverter}"
-                            var="ramoAtividade"
-                            itemLabel="#{ramoAtividade.descricao}"
-                            itemValue="#{ramoAtividade}"
-                            size="80"/>
+                    <p:autoComplete id="ramoAtividade"
+                                    value="#{gestaoEmpresasBean.empresa.ramoAtividade}"
+                                    completeMethod="#{gestaoEmpresasBean.completarRamoAtividade}"
+                                    converter="#{gestaoEmpresasBean.ramoAtividadeConverter}"
+                                    var="ramoAtividade"
+                                    itemLabel="#{ramoAtividade.descricao}"
+                                    itemValue="#{ramoAtividade}"
+                                    size="80"/>
 
                     <p:outputLabel/>
-                    <p:commandButton value="Salvar"/>
+                    <p:commandButton value="Salvar"
+                                     actionListener="#{gestaoEmpresasBean.salvar()}"
+                                     update="empresasDataTable empresaPanelGrid"
+                                     oncomplete="PF('empresaDialogWidgetVar').hide()"
+                                     process="empresaDialog"/>
                 </h:panelGrid>
             </p:dialog>
         </h:form>
