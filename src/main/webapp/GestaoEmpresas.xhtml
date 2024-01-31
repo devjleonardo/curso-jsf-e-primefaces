@@ -97,6 +97,9 @@
                       resizable="false"
                       closeOnEscape="true">
                 <p:messages id="novaEmpresaMessages"/>
+
+                <p:defaultCommand target="salvarCommandButton" scope="empresaDialog"/>
+
                 <h:panelGrid id="empresaPanelGrid" columns="2" rendered="#{gestaoEmpresasBean.empresa ne null}">
                     <p:outputLabel for="cnpj" value="CNPJ: "/>
                     <p:inputMask id="cnpj"
@@ -143,7 +146,8 @@
                                     size="80"/>
 
                     <p:outputLabel/>
-                    <p:commandButton value="Salvar"
+                    <p:commandButton id="salvarCommandButton"
+                                     value="Salvar"
                                      actionListener="#{gestaoEmpresasBean.salvar()}"
                                      update="empresaPanelGrid novaEmpresaMessages"
                                      oncomplete="if (!args.validationFailed) PF('empresaDialogWidgetVar').hide()"
