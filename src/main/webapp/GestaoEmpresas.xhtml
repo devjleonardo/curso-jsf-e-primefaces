@@ -62,7 +62,11 @@
                                      actionListener="#{gestaoEmpresasBean.excluir()}"
                                      update="messages empresasDataTable toolbar"
                                      process="@this"
-                                     icon="fa fa-trash"/>
+                                     icon="fa fa-trash">
+                        <p:confirm header="Confirmação de exclusão"
+                                   message="Você tem certeza que deseja excluir esta Empresa?"
+                                   icon="ui-icon-alert"/>
+                    </p:commandButton>
 
                     <span class="ui-separator">
                         <span class="ui-icon ui-icon-grip-dotted-vertical"/>
