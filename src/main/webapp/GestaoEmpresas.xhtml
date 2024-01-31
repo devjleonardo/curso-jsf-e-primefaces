@@ -59,6 +59,7 @@
                     </p:commandButton>
 
                     <p:commandButton title="Excluir"
+                                     disabled="#{not gestaoEmpresasBean.empresaSelecionada}"
                                      actionListener="#{gestaoEmpresasBean.excluir()}"
                                      update="messages empresasDataTable toolbar"
                                      process="@this"
@@ -72,7 +73,9 @@
                         <span class="ui-icon ui-icon-grip-dotted-vertical"/>
 	                </span>
 
-                    <p:commandButton title="Exportar para o Excel" icon="fa fa-file-excel-o"/>
+                    <p:commandButton title="Exportar para o Excel" ajax="false" icon="fa fa-file-excel-o">
+                        <p:dataExporter type="xls" target="empresasDataTable" fileName="Empresas"/>
+                    </p:commandButton>
                 </f:facet>
             </p:toolbar>
 
