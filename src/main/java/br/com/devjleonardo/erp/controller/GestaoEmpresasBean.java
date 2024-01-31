@@ -43,26 +43,8 @@ public class GestaoEmpresasBean implements Serializable {
 
     private List<Empresa> listaEmpresas;
 
-    public void prepararNovaEmpresa() {
-        empresa = new Empresa();
-    }
-
-    public void prepararEdicao() {
-        ramoAtividadeConverter = new RamoAtividadeConverter(Arrays.asList(empresa.getRamoAtividade()));
-    }
-
-    public void salvar() {
-        cadastroEmpresaService.salvar(empresa);
-
-        if (javaHouvePesquisa()) {
-            pesquisarPorRazaoSocialOuNomeFantasia();
-        } else {
-            todasEmpresas();
-        }
-
-        messages.info("Empresa salva com sucesso!");
-
-        RequestContext.getCurrentInstance().update(Arrays.asList("form:messages", "form:empresasDataTable"));
+    public void todasEmpresas() {
+        listaEmpresas = empresaRepository.todasEmpresas();
     }
 
     public void pesquisarPorRazaoSocialOuNomeFantasia() {
@@ -73,8 +55,12 @@ public class GestaoEmpresasBean implements Serializable {
         }
     }
 
-    public void todasEmpresas() {
-        listaEmpresas = empresaRepository.todasEmpresas();
+    public void prepararNovaEmpresa() {
+        empresa = new Empresa();
+    }
+
+    public void prepararEdicao() {
+        ramoAtividadeConverter = new RamoAtividadeConverter(Arrays.asList(empresa.getRamoAtividade()));
     }
 
     public List<RamoAtividade> completarRamoAtividade(String termo) {
@@ -83,6 +69,34 @@ public class GestaoEmpresasBean implements Serializable {
         ramoAtividadeConverter = new RamoAtividadeConverter(listaRamoAtividades);
 
         return listaRamoAtividades;
+    }
+
+    public void salvar() {
+        cadastroEmpresaService.salvar(empresa);
+
+        atualizarRegistros();
+
+        messages.info("Empresa salva com sucesso!");
+
+        RequestContext.getCurrentInstance().update(Arrays.asList("form:messages", "form:empresasDataTable"));
+    }
+
+    public void excluir() {
+        cadastroEmpresaService.excluir(empresa);
+
+        empresa = null;
+
+        atualizarRegistros();
+
+        messages.info("Empresa excluída com sucesso!");
+    }
+
+    private void atualizarRegistros() {
+        if (javaHouvePesquisa()) {
+            pesquisarPorRazaoSocialOuNomeFantasia();
+        } else {
+            todasEmpresas();
+        }
     }
 
     private boolean javaHouvePesquisa() {
