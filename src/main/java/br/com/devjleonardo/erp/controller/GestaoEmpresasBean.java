@@ -1,10 +1,13 @@
 package br.com.devjleonardo.erp.controller;
 
 import br.com.devjleonardo.erp.model.Empresa;
+import br.com.devjleonardo.erp.model.RamoAtividade;
 import br.com.devjleonardo.erp.model.TipoEmpresa;
 import br.com.devjleonardo.erp.repository.EmpresaRepository;
+import br.com.devjleonardo.erp.repository.RamoAtividadeRepository;
 import br.com.devjleonardo.erp.util.FacesMessages;
 
+import javax.faces.convert.Converter;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -21,11 +24,17 @@ public class GestaoEmpresasBean implements Serializable {
     private EmpresaRepository empresaRepository;
 
     @Inject
+    private RamoAtividadeRepository ramoAtividadeRepository;
+
+    @Inject
     private FacesMessages messages;
+
+    private String termoPesquisa;
+
+    private Converter ramoAtividadeConverter;
 
     private List<Empresa> listaEmpresas;
 
-    private String termoPesquisa;
 
     public void pesquisarPorRazaoSocialOuNomeFantasia() {
         listaEmpresas = empresaRepository.pesquisarPorRazaoSocialOuNomeFantasia(termoPesquisa);
@@ -37,6 +46,14 @@ public class GestaoEmpresasBean implements Serializable {
 
     public void todasEmpresas() {
         listaEmpresas = empresaRepository.todasEmpresas();
+    }
+
+    public List<RamoAtividade> completarRamoAtividade(String termo) {
+        List<RamoAtividade> listaRamoAtividades = ramoAtividadeRepository.pesquiarPorDescricao(termo);
+
+        ramoAtividadeConverter = new RamoAtividadeConverter(listaRamoAtividades);
+
+        return listaRamoAtividades;
     }
 
     public List<Empresa> getListaEmpresas() {
@@ -51,7 +68,12 @@ public class GestaoEmpresasBean implements Serializable {
         this.termoPesquisa = termoPesquisa;
     }
 
+    public Converter getRamoAtividadeConverter() {
+        return ramoAtividadeConverter;
+    }
+
     public TipoEmpresa[] getTiposEmpresa() {
         return TipoEmpresa.values();
     }
+
 }

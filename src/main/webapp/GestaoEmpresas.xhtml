@@ -26,10 +26,10 @@
 
                     <p:commandButton
                             value="Pesquisar"
-                            style="margin-right: 4px"
                             actionListener="#{gestaoEmpresasBean.pesquisarPorRazaoSocialOuNomeFantasia()}"
                             update="empresasDataTable"
-                            icon="fa fa fa-search"/>
+                            icon="fa fa fa-search"
+                            style="margin-right: 4px"/>
 
                     <span class="ui-separator">
 	                    <span class="ui-icon ui-icon-grip-dotted-vertical"/>
@@ -114,7 +114,14 @@
                     </p:selectOneMenu>
 
                     <p:outputLabel for="ramoAtividade" value="Ramo atividade: "/>
-                    <p:autoComplete id="ramoAtividade" size="80"/>
+                    <p:autoComplete
+                            id="ramoAtividade"
+                            completeMethod="#{gestaoEmpresasBean.completarRamoAtividade}"
+                            converter="#{gestaoEmpresasBean.ramoAtividadeConverter}"
+                            var="ramoAtividade"
+                            itemLabel="#{ramoAtividade.descricao}"
+                            itemValue="#{ramoAtividade}"
+                            size="80"/>
 
                     <p:outputLabel/>
                     <p:commandButton value="Salvar"/>
