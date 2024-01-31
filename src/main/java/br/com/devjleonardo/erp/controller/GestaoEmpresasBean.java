@@ -7,12 +7,14 @@ import br.com.devjleonardo.erp.repository.EmpresaRepository;
 import br.com.devjleonardo.erp.repository.RamoAtividadeRepository;
 import br.com.devjleonardo.erp.service.CadastroEmpresaService;
 import br.com.devjleonardo.erp.util.FacesMessages;
+import org.primefaces.context.RequestContext;
 
 import javax.faces.convert.Converter;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 
 @Named
@@ -50,9 +52,13 @@ public class GestaoEmpresasBean implements Serializable {
 
         if (javaHouvePesquisa()) {
             pesquisarPorRazaoSocialOuNomeFantasia();
+        } else {
+            todasEmpresas();
         }
 
-        messages.info("Empresa cadastrada com sucesso!");
+        messages.info("Empresa salva com sucesso!");
+
+        RequestContext.getCurrentInstance().update(Arrays.asList("form:messages", "form:empresasDataTable"));
     }
 
     public void pesquisarPorRazaoSocialOuNomeFantasia() {

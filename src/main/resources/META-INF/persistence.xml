@@ -9,6 +9,7 @@
             <property name="javax.persistence.jdbc.url"
                       value="jdbc:mysql://localhost/cursojsfprimefaces?useSSL=false
                       &amp;createDatabaseIfNotExist=true
+                      &amp;useUnicode=true
                       &amp;characterEncoding=UTF-8
                       &amp;serverTimezone=UTC"/>
 
@@ -22,8 +23,6 @@
 
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
-            <property name="hibernate.connection.characterEncoding" value="UTF-8"/>
-            <property name="hibernate.connection.useUnicode" value="true"/>
         </properties>
     </persistence-unit>
 </persistence>

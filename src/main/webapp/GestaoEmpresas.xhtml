@@ -13,8 +13,8 @@
             <f:viewAction action="#{gestaoEmpresasBean.todasEmpresas()}"/>
         </f:metadata>
 
-        <h:form>
-            <p:messages autoUpdate="true"/>
+        <h:form id="form">
+            <p:messages id="messages"/>
 
             <p:toolbar>
                 <f:facet name="left">
@@ -26,7 +26,7 @@
 
                     <p:commandButton value="Pesquisar"
                                      actionListener="#{gestaoEmpresasBean.pesquisarPorRazaoSocialOuNomeFantasia()}"
-                                     update="empresasDataTable"
+                                     update="empresasDataTable messages"
                                      process="@this termoPesquisa"
                                      icon="fa fa fa-search"
                                      style="margin-right: 4px"/>
@@ -94,6 +94,7 @@
                       modal="true"
                       resizable="false"
                       closeOnEscape="true">
+                <p:messages id="novaEmpresaMessages"/>
                 <h:panelGrid id="empresaPanelGrid" columns="2" rendered="#{gestaoEmpresasBean.empresa ne null}">
                     <p:outputLabel for="cnpj" value="CNPJ: "/>
                     <p:inputMask id="cnpj"
@@ -112,7 +113,7 @@
                     <p:inputText id="nomeFantasia"
                                  value="#{gestaoEmpresasBean.empresa.nomeFantasia}"
                                  size="80"
-                                 maxlength="120"/>
+                                 maxlength="80"/>
 
                     <p:outputLabel for="dataFundacao" value="Data fundação: "/>
                     <p:calendar id="dataFundacao"
@@ -142,8 +143,8 @@
                     <p:outputLabel/>
                     <p:commandButton value="Salvar"
                                      actionListener="#{gestaoEmpresasBean.salvar()}"
-                                     update="empresasDataTable empresaPanelGrid"
-                                     oncomplete="PF('empresaDialogWidgetVar').hide()"
+                                     update="empresaPanelGrid novaEmpresaMessages"
+                                     oncomplete="if (!args.validationFailed) PF('empresaDialogWidgetVar').hide()"
                                      process="empresaDialog"/>
                 </h:panelGrid>
             </p:dialog>
